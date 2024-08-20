@@ -1,4 +1,4 @@
-import { Captions } from "lucide-react"
+
 import { z } from "zod"
 
 export const SignupValidation = z.object({

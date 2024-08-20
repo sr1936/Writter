@@ -3,7 +3,7 @@ import PostStatus from "@/components/shared/PostStatus";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import { useGetPostById } from "@/lib/react-query/queriesAndMutations"
-import { formatDateString } from "@/lib/utils";
+import {  multiFormatDateString } from "@/lib/utils";
 import { Link, useParams } from "react-router-dom";
 
 
@@ -33,7 +33,7 @@ const PostDetails = () => {
                   </p>
                   <div className="flex-center gap-2 text-light-3">
                     <p className="subtle-semibold lg:small-regular">
-                      {formatDateString(post?.$createdAt)}
+                      {multiFormatDateString(post?.$createdAt)}
                     </p>
                     -
                     <p className="subtle-semibold lg:small-regular">

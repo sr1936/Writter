@@ -3,7 +3,7 @@ import { ID } from 'appwrite';
 import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 import { account, appwriteConfig, avatars, databases, storage } from './config';
 import { Query } from 'appwrite';
-import { error } from 'console';
+
 
 
 
@@ -358,7 +358,7 @@ export async function deletePost(postId:string, imageId:string) {
   
 }
 
-export async function getInfinitePosts({pageParam}:{pageParam:number}) {
+export async function getInfinitePosts({pageParam = 0}:{pageParam?:number}) {
   const queries : any[] = [Query.orderDesc('$updatedAt'), Query.limit(9)]
 
   if(pageParam){
@@ -377,6 +377,7 @@ export async function getInfinitePosts({pageParam}:{pageParam:number}) {
  } catch (error) {
    console.log(error)
  }
+ 
 }
 
 export async function searchPosts(searchTerm: string) {
@@ -433,18 +434,26 @@ export async function getUserById (userId: string) {
    }
 }
 
-export async function getUsers (limit?: number){
-     try {
-      const users = await databases.listDocuments(
-        appwriteConfig.databaseId,
-        appwriteConfig.userCollectionId,
-        [Query.orderDesc("$createdAt"), Query.limit(10)]
-      )
-      if(!users) throw Error;
+export async function getUsers(limit?: number) {
+  const queries: any[] = [Query.orderDesc("$createdAt")];
 
-      return users     } catch (error) {
-      console.log(error)
-     }
+  if (limit) {
+    queries.push(Query.limit(limit));
+  }
+
+  try {
+    const users = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.userCollectionId,
+      queries
+    );
+
+    if (!users) throw Error;
+
+    return users;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 

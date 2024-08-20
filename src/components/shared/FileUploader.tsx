@@ -15,7 +15,7 @@ const FileUploader = ({ fieldChange , mediaUrl }:FileUploaderProps) => {
 
     const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
   const onDrop = useCallback((acceptedFiles:FileWithPath[]) => {
-
+       console.log(file);
      // Clear any previous error messages
     setFileError('');
 
